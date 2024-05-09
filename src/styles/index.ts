@@ -28,6 +28,17 @@ export const GlobalStyles = createGlobalStyle`
         src: url("/fonts/Poppins/Poppins-ExtraLight.ttf") format('truetype');
     }
 
+    // Inter fonts
+    @font-face {
+        font-family: "Inter Light";
+        src: url("/fonts/Inter/Inter-Light.ttf") format('truetype');
+    }
+
+    @font-face {
+        font-family: "Inter Regular";
+        src: url("/fonts/Inter/Inter-Regular.ttf") format('truetype');
+    }
+
     *{
         margin: 0;
         padding: 0;
