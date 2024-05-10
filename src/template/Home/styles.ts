@@ -7,7 +7,13 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
 
-    scroll-behavior: none;
+    overflow: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
 `;
 
 export const Wrapper = styled.div`

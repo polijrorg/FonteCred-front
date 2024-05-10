@@ -17,6 +17,12 @@ export const Wrapper = styled.div`
 export const Symbol = styled.img`
     height: 32px;
     width: 32px;
+
+    :hover {
+        transition: 0.5s;
+        scale: 1.1;
+        cursor: pointer;
+    }
 `;
 
 export const Subtitle = styled.text`
