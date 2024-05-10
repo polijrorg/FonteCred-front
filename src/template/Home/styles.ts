@@ -56,3 +56,20 @@ export const BigCardsWrapper = styled.div`
     display: flex;
     flex-wrap: wrap;
 `;
+
+export const ArrowButton = styled.button`
+    position: absolute;
+    right: 20px; /* Adjust based on your layout */
+    top: 50%; /* Vertically centered */
+    transform: translateY(-50%);
+    background: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+
+    &:hover {
+        background: ${defaultTheme.colors.white};
+    }
+`;

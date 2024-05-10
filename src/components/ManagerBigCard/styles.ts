@@ -53,6 +53,7 @@ export const TitleTableDiv = styled.div`
 
 export const InvisibleDiv = styled.div`
     height: 48px;
+    width: 32px;
 `;
 
 export const TableTitle = styled.text`
