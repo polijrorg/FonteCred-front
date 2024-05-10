@@ -39,6 +39,11 @@ export const GlobalStyles = createGlobalStyle`
         src: url("/fonts/Inter/Inter-Regular.ttf") format('truetype');
     }
 
+    @font-face {
+        font-family: "Inter Bold";
+        src: url("/fonts/Inter/Inter-Bold.ttf") format('truetype');
+    }
+
     *{
         margin: 0;
         padding: 0;

@@ -1,6 +1,6 @@
 import * as S from './styles';
 
-export const Header = () => {
+export const Sidebar = () => {
     return (
         <S.Wrapper>
             <S.MniWrapper>
@@ -11,4 +11,4 @@ export const Header = () => {
     );
 };
 
-export default Header;
+export default Sidebar;

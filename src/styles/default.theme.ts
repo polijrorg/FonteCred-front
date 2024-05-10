@@ -7,6 +7,10 @@ export const defaultTheme = {
             dark2: '#353431'
         },
 
+        secondary: {
+            light: '#51504B'
+        },
+
         white: '#FFFFFF',
 
         onSurface: {

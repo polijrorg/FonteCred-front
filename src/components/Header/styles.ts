@@ -4,23 +4,22 @@ import { defaultTheme } from 'styles';
 export const Wrapper = styled.div`
     width: 100vw;
     height: 56px;
+    padding: 10px 20px;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    body {
-        background: linear-gradient(
-            to right,
-            ${defaultTheme.colors.primary.light},
-            ${defaultTheme.colors.primary.main}
-        );
-    }
+    background: linear-gradient(
+        to right,
+        ${defaultTheme.colors.primary.light},
+        ${defaultTheme.colors.primary.main}
+    );
 `;
 
 export const RightHeaderDiv = styled.div`
     display: flex;
     flex-direction: row;
-    width: 30%;
+    width: 15%;
     height: 70%;
     align-items: center;
     justify-content: space-between;
@@ -34,6 +33,12 @@ export const Logo = styled.img`
 export const Symbol = styled.img`
     height: 16px;
     width: 16px;
+
+    :hover {
+        transition: 0.5s;
+        cursor: pointer;
+        scale: 1.3;
+    }
 `;
 
 export const ProfilePic = styled.img`
