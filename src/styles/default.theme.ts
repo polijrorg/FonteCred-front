@@ -8,7 +8,8 @@ export const defaultTheme = {
         },
 
         secondary: {
-            light: '#51504B'
+            light: '#51504B',
+            light2: '#D9D9D9'
         },
 
         white: '#FFFFFF',
