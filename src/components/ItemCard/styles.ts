@@ -11,6 +11,12 @@ export const Card = styled.div`
     flex-direction: column;
     justify-content: space-between;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+    :hover {
+        cursor: pointer;
+        transition: 0.1s;
+        scale: 1.1;
+    }
 `;
 
 export const EditIcon = styled.img`
