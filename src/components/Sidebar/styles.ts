@@ -1,13 +1,16 @@
 import styled from 'styled-components';
 import { defaultTheme } from 'styles';
 
+interface PageTitleProps {
+    isActive: boolean;
+}
+
 export const Wrapper = styled.div`
     width: 220px;
     height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
     background-color: ${defaultTheme.colors.primary.dark};
 `;
 
@@ -29,10 +32,13 @@ export const MniWrapper = styled.div`
     }
 `;
 
-export const PageTitle = styled.text`
+export const PageTitle = styled.span<PageTitleProps>`
     font-family: Inter Light;
     font-size: 14px;
-    color: ${defaultTheme.colors.primary.light};
+    color: ${({ isActive }) =>
+        isActive
+            ? defaultTheme.colors.primary.main
+            : defaultTheme.colors.primary.light};
 `;
 
 export const Symbol = styled.img`
