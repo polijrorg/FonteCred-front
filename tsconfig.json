@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": "src",
+    "baseUrl": "./src",
     "target": "esnext",
     "module": "esnext",
     "jsx": "preserve",
@@ -33,7 +33,6 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "next.config.js",
-    "src/components/Button/styles.tss"
+    "next.config.js"
   ]
 }
