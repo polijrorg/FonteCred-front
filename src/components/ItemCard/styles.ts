@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import { defaultTheme } from 'styles';
 
 export const Card = styled.div`
-    width: 150px;
-    height: 220px;
+    width: 160px;
+    height: 240px;
     border-radius: 8px;
     background-color: ${defaultTheme.colors.primary.dark};
     position: relative;
@@ -23,9 +23,14 @@ export const EditIcon = styled.img`
     position: absolute;
     top: 8px;
     right: 8px;
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
+    width: 36px;
+    height: 36px;
+
+    :hover {
+        cursor: pointer;
+        transition: 0.1s;
+        scale: 1.1;
+    }
 `;
 
 export const Content = styled.div`
@@ -36,6 +41,11 @@ export const Content = styled.div`
     background-color: #fff;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
+`;
+
+export const Image = styled.img`
+    height: auto;
+    width: 100%;
 `;
 
 export const Footer = styled.div`
