@@ -6,8 +6,10 @@ interface PageTitleProps {
 }
 
 export const Wrapper = styled.div`
+    padding-left: 15px;
     width: 220px;
-    height: 100%;
+    height: 100vh;
+    overflow-x: hidden;
     display: flex;
     flex-direction: column;
     align-items: center;
