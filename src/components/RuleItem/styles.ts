@@ -32,8 +32,8 @@ export const ListItemTitle = styled.span`
 
 export const ListItemContent = styled.div`
     padding: 16px;
-    background-color: #444;
-    color: ${defaultTheme.colors.white};
+    background-color: ${defaultTheme.colors.white};
+    color: ${defaultTheme.colors.black};
     font-size: 14px;
 `;
 
