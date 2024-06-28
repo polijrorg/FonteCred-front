@@ -6,6 +6,7 @@ export const Container = styled.div`
     width: 100vw;
     display: flex;
     flex-direction: column;
+    background-color: ${defaultTheme.colors.primary.dark};
 
     overflow: auto;
     scrollbar-width: none;
@@ -24,7 +25,7 @@ export const Wrapper = styled.div`
 
 export const Background = styled.div`
     width: 100%;
-    height: 100vh;
+    height: 100%;
     background-color: ${defaultTheme.colors.secondary.light};
     padding: 20px;
 `;
