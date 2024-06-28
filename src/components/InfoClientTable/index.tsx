@@ -18,46 +18,66 @@ interface DataItem {
 }
 
 interface TableProps {
-    data: DataItem[];
+    data: DataItem;
 }
 
 const Table: React.FC<TableProps> = ({ data }) => {
     return (
         <S.TableWrapper>
+            <S.ButtonsDiv>
+                <S.Icons src="assets/icons/greenPen.svg" />
+                <S.Icons src="assets/icons/Download2.svg" />
+            </S.ButtonsDiv>
             <S.Table>
-                <thead>
-                    <tr>
-                        <S.TableHeader>Nome</S.TableHeader>
-                        <S.TableHeader>Pontos</S.TableHeader>
-                        <S.TableHeader>Última retirada</S.TableHeader>
-                        <S.TableHeader>Último acesso</S.TableHeader>
-                        <S.TableHeader>CPF</S.TableHeader>
-                        <S.TableHeader>Rua</S.TableHeader>
-                        <S.TableHeader>Bairro</S.TableHeader>
-                        <S.TableHeader>Cidade</S.TableHeader>
-                        <S.TableHeader>Estado</S.TableHeader>
-                        <S.TableHeader>CEP</S.TableHeader>
-                        <S.TableHeader>Complemento</S.TableHeader>
-                        <S.TableHeader>Itens favoritados</S.TableHeader>
-                    </tr>
-                </thead>
                 <tbody>
-                    {data.map((item: DataItem) => (
-                        <S.TableRow key={item.id}>
-                            <S.TableData>{item.nome}</S.TableData>
-                            <S.TableData>{item.pontos}</S.TableData>
-                            <S.TableData>{item.ultimaRetirada}</S.TableData>
-                            <S.TableData>{item.ultimoAcesso}</S.TableData>
-                            <S.TableData>{item.cpf}</S.TableData>
-                            <S.TableData>{item.rua}</S.TableData>
-                            <S.TableData>{item.bairro}</S.TableData>
-                            <S.TableData>{item.cidade}</S.TableData>
-                            <S.TableData>{item.estado}</S.TableData>
-                            <S.TableData>{item.cep}</S.TableData>
-                            <S.TableData>{item.complemento}</S.TableData>
-                            <S.TableData>{item.itensFavoritados}</S.TableData>
-                        </S.TableRow>
-                    ))}
+                    <S.TableRow>
+                        <S.TableHeader>Nome:</S.TableHeader>
+                        <S.TableData>{data.nome}</S.TableData>
+                    </S.TableRow>
+                    <S.TableRow>
+                        <S.TableHeader>Pontos:</S.TableHeader>
+                        <S.TableData>{data.pontos}</S.TableData>
+                    </S.TableRow>
+                    <S.TableRow>
+                        <S.TableHeader>Última retirada:</S.TableHeader>
+                        <S.TableData>{data.ultimaRetirada}</S.TableData>
+                    </S.TableRow>
+                    <S.TableRow>
+                        <S.TableHeader>Último acesso:</S.TableHeader>
+                        <S.TableData>{data.ultimoAcesso}</S.TableData>
+                    </S.TableRow>
+                    <S.TableRow>
+                        <S.TableHeader>CPF:</S.TableHeader>
+                        <S.TableData>{data.cpf}</S.TableData>
+                    </S.TableRow>
+                    <S.TableRow>
+                        <S.TableHeader>Rua:</S.TableHeader>
+                        <S.TableData>{data.rua}</S.TableData>
+                    </S.TableRow>
+                    <S.TableRow>
+                        <S.TableHeader>Bairro:</S.TableHeader>
+                        <S.TableData>{data.bairro}</S.TableData>
+                    </S.TableRow>
+                    <S.TableRow>
+                        <S.TableHeader>Cidade:</S.TableHeader>
+                        <S.TableData>{data.cidade}</S.TableData>
+                    </S.TableRow>
+                    <S.TableRow>
+                        <S.TableHeader>Estado:</S.TableHeader>
+                        <S.TableData>{data.estado}</S.TableData>
+                    </S.TableRow>
+                    <S.TableRow>
+                        <S.TableHeader>CEP:</S.TableHeader>
+                        <S.TableData>{data.cep}</S.TableData>
+                    </S.TableRow>
+                    <S.TableRow>
+                        <S.TableHeader>Complemento:</S.TableHeader>
+                        <S.TableData>{data.complemento}</S.TableData>
+                    </S.TableRow>
+                    <S.TableRow>
+                        <S.TableHeader>Itens favoritados:</S.TableHeader>
+                        <S.TableData>{data.itensFavoritados}</S.TableData>
+                    </S.TableRow>
                 </tbody>
             </S.Table>
         </S.TableWrapper>

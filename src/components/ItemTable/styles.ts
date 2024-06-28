@@ -2,19 +2,16 @@ import styled from 'styled-components';
 import { defaultTheme } from 'styles';
 
 export const TableWrapper = styled.div`
-    border-radius: 10px;
-    margin-top: 15px;
     margin-left: 150px;
+    margin-top: 15px;
     width: 1000px;
-    padding: 16px;
+    overflow-x: auto;
     background-color: ${defaultTheme.colors.primary.dark};
 `;
 
-export const ButtonsDiv = styled.div`
+export const Table = styled.table`
     width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    border-collapse: collapse;
 `;
 
 export const Icons = styled.img`
@@ -28,32 +25,27 @@ export const Icons = styled.img`
     }
 `;
 
-export const Table = styled.table`
-    width: 300px;
-    margin-top: 15px;
-`;
-
 export const TableHeader = styled.th`
-    margin-left: 50px;
-    height: 14px;
-    font-size: 14px;
-    display: flex;
-    width: 300px;
-    color: ${defaultTheme.colors.secondary.light2};
-    padding: 10px 0px;
+    background-color: #333;
+    font-size: 12px;
+    color: #fff;
+    padding: 10px;
     text-align: left;
 `;
 
 export const TableRow = styled.tr`
     &:nth-child(even) {
+        background-color: #2e2e2e;
+    }
+    &:nth-child(odd) {
+        background-color: #1e1e1e;
     }
 `;
 
 export const TableData = styled.td`
-    font-size: 14px;
-    font-family: Inter Light;
-    height: 14px;
+    font-size: 12px;
+    padding: 10px;
+    border-bottom: 1px solid #333;
     color: #fff;
-    width: 10px;
-    padding: 10px 0px;
+    text-align: left;
 `;
