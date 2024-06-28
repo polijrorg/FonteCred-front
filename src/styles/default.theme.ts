@@ -13,6 +13,7 @@ export const defaultTheme = {
         },
 
         white: '#FFFFFF',
+        black: '#000000',
 
         onSurface: {
             lowEmphasis: '#949494',

@@ -2,26 +2,31 @@ import styled from 'styled-components';
 import { defaultTheme } from 'styles';
 
 export const Container = styled.div`
-    height: 100%;
+    height: 100vh;
     width: 100vw;
     display: flex;
     flex-direction: column;
     background-color: ${defaultTheme.colors.primary.dark};
 
-    overflow-x: hidden;
+    overflow: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
 `;
 
 export const Wrapper = styled.div`
-    width: 100vw;
-
+    width: 100%;
     display: flex;
     flex-direction: row;
-    overflow-x: hidden;
 `;
 
 export const Background = styled.div`
-    width: 100vw;
-    background-color: ${defaultTheme.colors.primary.dark2};
+    width: 100%;
+    height: 100%;
+    background-color: ${defaultTheme.colors.secondary.light};
     padding: 20px;
 `;
 
@@ -76,5 +81,16 @@ export const ArrowButton = styled.button`
 
     &:hover {
         background: ${defaultTheme.colors.white};
+    }
+`;
+
+export const Icon = styled.img`
+    height: 24px;
+    width: 24px;
+
+    :hover {
+        transition: 100ms;
+        scale: 1.2;
+        cursor: pointer;
     }
 `;
