@@ -73,17 +73,22 @@ const StatusEntregaTemplate: React.FC = () => {
                     <S.Table>
                         <thead>
                             <tr>
-                                <S.Th> </S.Th>
                                 <S.Th>Nome</S.Th>
                                 <S.Th>Data de Resgate</S.Th>
                                 <S.Th>Pedido</S.Th>
                                 <S.Th>Endereço</S.Th>
                                 <S.Th>Postado</S.Th>
+                                <S.Th> </S.Th>
                             </tr>
                         </thead>
                         <tbody>
                             {filteredData.map((item) => (
                                 <S.Tr key={item.id}>
+                                    <S.Td>{item.nome}</S.Td>
+                                    <S.Td>{item.dataResgate}</S.Td>
+                                    <S.Td>{item.pedido}</S.Td>
+                                    <S.Td>{item.endereco}</S.Td>
+                                    <S.Td>{item.postado ? 'Sim' : 'Não'}</S.Td>
                                     <S.Td>
                                         <S.Checkbox
                                             type="checkbox"
@@ -93,11 +98,6 @@ const StatusEntregaTemplate: React.FC = () => {
                                             }
                                         />
                                     </S.Td>
-                                    <S.Td>{item.nome}</S.Td>
-                                    <S.Td>{item.dataResgate}</S.Td>
-                                    <S.Td>{item.pedido}</S.Td>
-                                    <S.Td>{item.endereco}</S.Td>
-                                    <S.Td>{item.postado ? 'Sim' : 'Não'}</S.Td>
                                 </S.Tr>
                             ))}
                         </tbody>

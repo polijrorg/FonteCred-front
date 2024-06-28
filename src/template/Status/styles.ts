@@ -43,20 +43,22 @@ export const Subtitle = styled.text`
 `;
 
 export const Table = styled.table`
+    margin-top: 20px;
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    background-color: ${defaultTheme.colors.primary.dark};
 `;
 
 export const Th = styled.th`
-    border: 1px solid ${defaultTheme.colors.white};
+    font-size: 12px;
     padding: 8px;
     text-align: left;
     color: ${defaultTheme.colors.white};
 `;
 
 export const Td = styled.td`
-    border: 1px solid ${defaultTheme.colors.white};
+    font-size: 12px;
     padding: 8px;
     text-align: left;
     color: ${defaultTheme.colors.white};
