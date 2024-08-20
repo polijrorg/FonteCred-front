@@ -16,6 +16,8 @@ const Sidebar: React.FC = () => {
             window.location.href = 'http://localhost:3000/ClientInfo';
         } else if (page === 'Rules') {
             window.location.href = 'http://localhost:3000/Rules';
+        } else if (page === 'Status') {
+            window.location.href = 'http://localhost:3000/Status';
         }
     };
 
@@ -47,6 +49,12 @@ const Sidebar: React.FC = () => {
                 <S.Symbol src="assets/icons/PranchetaSymbol.svg" />
                 <S.PageTitle isActive={activePage === 'Rules'}>
                     Politicas de Pontuação
+                </S.PageTitle>
+            </S.MniWrapper>
+            <S.MniWrapper onClick={() => handleNavigation('Status')}>
+                <S.Symbol src="assets/icons/PranchetaSymbol.svg" />
+                <S.PageTitle isActive={activePage === 'Status'}>
+                    Status
                 </S.PageTitle>
             </S.MniWrapper>
         </S.Wrapper>
