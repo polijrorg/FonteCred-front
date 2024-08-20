@@ -29,16 +29,15 @@ export const Icons = styled.img`
 `;
 
 export const Table = styled.table`
-    width: 300px;
+    width: 650px;
     margin-top: 15px;
 `;
 
 export const TableHeader = styled.th`
     margin-left: 50px;
-    height: 14px;
     font-size: 14px;
     display: flex;
-    width: 300px;
+    width: 200;
     color: ${defaultTheme.colors.secondary.light2};
     padding: 10px 0px;
     text-align: left;
@@ -54,6 +53,6 @@ export const TableData = styled.td`
     font-family: Inter Light;
     height: 14px;
     color: #fff;
-    width: 10px;
+    width: 400px;
     padding: 10px 0px;
 `;
