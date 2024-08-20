@@ -1,20 +1,27 @@
-import React, { useState } from 'react';
+/* eslint-disable no-console */
+import React, { useEffect, useState } from 'react';
 import Header from 'components/Header';
 import Sidebar from 'components/Sidebar';
 import RuleList from 'components/RuleList';
 import CreateRuleModal from 'components/CreateRuleModal';
+import RulesService, { RulesList } from 'services/RulesService';
 import * as S from './styles';
 
-const RulesTemplate = () => {
+const RulesTemplate: React.FC = () => {
+    const [data, setData] = useState<RulesList[]>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [rules, setRules] = useState([
-        {
-            id: '1',
-            title: '1?',
-            content:
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus mollis magna eu eleifend hendrerit. Nullam sem arcu, fringilla eget ullamcorper sed, sodales non quam. Ut ornare felis non dignissim elementum. Quisque pulvinar,'
-        }
-    ]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const allRules = await RulesService.getRules();
+                setData(allRules);
+            } catch (err) {
+                console.error('Não foi possível carregar as regras', err);
+            }
+        };
+        fetchData();
+    }, []);
 
     const openModal = () => {
         setIsModalOpen(true);
@@ -24,13 +31,41 @@ const RulesTemplate = () => {
         setIsModalOpen(false);
     };
 
-    const handleSave = (title: string, content: string) => {
+    const handleSave = async (
+        policyName: string,
+        policyDescription: string
+    ) => {
         const newRule = {
-            id: (rules.length + 1).toString(),
-            title,
-            content
+            policyName,
+            policyDescription
         };
-        setRules([...rules, newRule]);
+
+        try {
+            await RulesService.createRule(newRule);
+            setData([
+                ...data,
+                {
+                    id: (data.length + 1).toString(),
+                    policyName,
+                    policyDescription
+                }
+            ]);
+        } catch (err) {
+            console.error('Erro ao criar a regra:', err);
+        }
+    };
+
+    const handleDeleteFromUI = (id: string) => {
+        setData(data.filter((rule) => rule.id !== id));
+    };
+
+    const handleDelete = async (id: string) => {
+        try {
+            await RulesService.deleteRule(id);
+            handleDeleteFromUI(id);
+        } catch (err) {
+            console.error('Erro ao deletar a regra', err);
+        }
     };
 
     return (
@@ -46,7 +81,7 @@ const RulesTemplate = () => {
                             onClick={openModal}
                         />
                     </S.SubtitleDiv>
-                    <RuleList rules={rules} />
+                    <RuleList rules={data} deletar={handleDelete} />
                 </S.Background>
             </S.Wrapper>
             <CreateRuleModal

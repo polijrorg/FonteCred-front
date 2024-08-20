@@ -1,16 +1,22 @@
+/* eslint-disable no-console */
 import React, { useState } from 'react';
 import { FaChevronDown, FaChevronUp, FaEdit, FaTrash } from 'react-icons/fa';
 import EditModal from 'components/RuleEditModal';
+import RulesService from 'services/RulesService';
 import * as S from './styles';
 
 interface ExpandableListItemProps {
+    id: string;
     title: string;
     content: string;
+    onDelete: () => void;
 }
 
 const ExpandableListItem: React.FC<ExpandableListItemProps> = ({
+    id,
     title,
-    content
+    content,
+    onDelete
 }) => {
     const [isExpanded, setIsExpanded] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -28,8 +34,19 @@ const ExpandableListItem: React.FC<ExpandableListItemProps> = ({
         setIsModalOpen(false);
     };
 
-    const handleSave = (newContent: string) => {
-        setCurrentContent(newContent);
+    const handleSave = async (newContent: string) => {
+        try {
+            const response = await RulesService.patchRule(id, newContent);
+            console.log(response);
+            setCurrentContent(newContent);
+            closeModal();
+        } catch (err) {
+            console.error('Erro ao atualizar a regra:', err);
+        }
+    };
+
+    const handleDelete = () => {
+        onDelete();
     };
 
     return (
@@ -47,7 +64,7 @@ const ExpandableListItem: React.FC<ExpandableListItemProps> = ({
                             />
                         )}
                         <FaEdit size={20} onClick={openModal} />
-                        <FaTrash size={20} />
+                        <FaTrash size={20} onClick={handleDelete} />
                     </S.IconWrapper>
                 </S.ListItemHeader>
                 {isExpanded && (
