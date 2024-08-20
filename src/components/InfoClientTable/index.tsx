@@ -1,20 +1,25 @@
 import React from 'react';
 import * as S from './styles';
 
+interface Prize {
+    code: string;
+    name: string;
+}
+
 interface DataItem {
     id: string;
-    nome: string;
-    pontos: number;
-    ultimaRetirada: string;
-    ultimoAcesso: string;
+    name: string;
+    points: number;
+    lastRedeem: string;
+    lastLogin: string;
     cpf: string;
-    rua: string;
+    endereco: string;
     bairro: string;
     cidade: string;
-    estado: string;
+    uf: string;
     cep: string;
     complemento: string;
-    itensFavoritados: string;
+    favoritePrizes: Prize[];
 }
 
 interface TableProps {
@@ -32,19 +37,19 @@ const Table: React.FC<TableProps> = ({ data }) => {
                 <tbody>
                     <S.TableRow>
                         <S.TableHeader>Nome:</S.TableHeader>
-                        <S.TableData>{data.nome}</S.TableData>
+                        <S.TableData>{data.name}</S.TableData>
                     </S.TableRow>
                     <S.TableRow>
                         <S.TableHeader>Pontos:</S.TableHeader>
-                        <S.TableData>{data.pontos}</S.TableData>
+                        <S.TableData>{data.points}</S.TableData>
                     </S.TableRow>
                     <S.TableRow>
                         <S.TableHeader>Última retirada:</S.TableHeader>
-                        <S.TableData>{data.ultimaRetirada}</S.TableData>
+                        <S.TableData>{data.lastRedeem}</S.TableData>
                     </S.TableRow>
                     <S.TableRow>
                         <S.TableHeader>Último acesso:</S.TableHeader>
-                        <S.TableData>{data.ultimoAcesso}</S.TableData>
+                        <S.TableData>{data.lastLogin}</S.TableData>
                     </S.TableRow>
                     <S.TableRow>
                         <S.TableHeader>CPF:</S.TableHeader>
@@ -52,7 +57,7 @@ const Table: React.FC<TableProps> = ({ data }) => {
                     </S.TableRow>
                     <S.TableRow>
                         <S.TableHeader>Rua:</S.TableHeader>
-                        <S.TableData>{data.rua}</S.TableData>
+                        <S.TableData>{data.endereco}</S.TableData>
                     </S.TableRow>
                     <S.TableRow>
                         <S.TableHeader>Bairro:</S.TableHeader>
@@ -64,7 +69,7 @@ const Table: React.FC<TableProps> = ({ data }) => {
                     </S.TableRow>
                     <S.TableRow>
                         <S.TableHeader>Estado:</S.TableHeader>
-                        <S.TableData>{data.estado}</S.TableData>
+                        <S.TableData>{data.uf}</S.TableData>
                     </S.TableRow>
                     <S.TableRow>
                         <S.TableHeader>CEP:</S.TableHeader>
@@ -76,7 +81,11 @@ const Table: React.FC<TableProps> = ({ data }) => {
                     </S.TableRow>
                     <S.TableRow>
                         <S.TableHeader>Itens favoritados:</S.TableHeader>
-                        <S.TableData>{data.itensFavoritados}</S.TableData>
+                        <S.TableData>
+                            {data.favoritePrizes
+                                .map((prize) => prize.name)
+                                .join(', ')}
+                        </S.TableData>
                     </S.TableRow>
                 </tbody>
             </S.Table>
