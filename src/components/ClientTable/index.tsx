@@ -1,16 +1,17 @@
 import React from 'react';
+import { Client } from 'services/ClientListService';
 import * as S from './styles';
 
-interface DataItem {
-    id: string; // Adicione um campo id único
-    nome: string;
-    pontos: number;
-    ultimaRetirada: string;
-    ultimoAcesso: string;
-}
+// interface DataItem {
+//     id: string;
+//     nome: string;
+//     pontos: number;
+//     ultimaRetirada: string;
+//     ultimoAcesso: string;
+// }
 
 interface TableProps {
-    data: DataItem[];
+    data: Client[];
 }
 
 const Table: React.FC<TableProps> = ({ data }) => {
@@ -26,12 +27,12 @@ const Table: React.FC<TableProps> = ({ data }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {data.map((item: DataItem) => (
-                        <S.TableRow key={item.id}>
-                            <S.TableData>{item.nome}</S.TableData>
-                            <S.TableData>{item.pontos}</S.TableData>
-                            <S.TableData>{item.ultimaRetirada}</S.TableData>
-                            <S.TableData>{item.ultimoAcesso}</S.TableData>
+                    {data.map((client) => (
+                        <S.TableRow key={client.id}>
+                            <S.TableData>{client.name}</S.TableData>
+                            <S.TableData>{client.points}</S.TableData>
+                            <S.TableData>{client.lastRedeem}</S.TableData>
+                            <S.TableData>{client.lastLogin}</S.TableData>
                         </S.TableRow>
                     ))}
                 </tbody>
