@@ -1,64 +1,71 @@
-import React, { useState } from 'react';
+/* eslint-disable no-console */
+import React, { useEffect, useState } from 'react';
 import Header from 'components/Header';
 import Sidebar from 'components/Sidebar';
 import Searchbar from 'components/Searchbar';
+import DeliverStatusService from 'services/DeliverStatusService';
 import * as S from './styles';
 
 interface DataItem {
     id: string;
-    nome: string;
-    dataResgate: string;
-    pedido: string;
+    client: {
+        name: string;
+    };
+    redeemedDate: string;
+    prize: {
+        name: string;
+    };
     endereco: string;
-    postado: boolean;
+    posted: boolean;
 }
-
-const initialData: DataItem[] = [
-    {
-        id: '1',
-        nome: 'Bruno vinicius',
-        dataResgate: '01/02/2024',
-        pedido: 'Luva',
-        endereco: 'Rua Corinto, 100',
-        postado: false
-    },
-    {
-        id: '2',
-        nome: 'FonteCred',
-        dataResgate: '01/01/2024',
-        pedido: 'Chaveiro',
-        endereco: 'Rua Font Cred, 100',
-        postado: true
-    },
-    {
-        id: '3',
-        nome: 'Danteo',
-        dataResgate: '01/01/2024',
-        pedido: 'Luva',
-        endereco: 'Rua Font Cred, 100',
-        postado: true
-    }
-];
 
 const StatusEntregaTemplate: React.FC = () => {
     const [searchQuery, setSearchQuery] = useState('');
-    const [data, setData] = useState(initialData);
+    const [data, setData] = useState<DataItem[]>([]);
 
     const handleSearch = (query: string) => {
         setSearchQuery(query);
     };
 
-    const handleCheckboxChange = (id: string) => {
-        setData(
-            data.map((item) =>
-                item.id === id ? { ...item, postado: !item.postado } : item
-            )
-        );
+    const handleCheckboxChange = async (id: string, currentStatus: boolean) => {
+        try {
+            // Atualiza imediatamente no estado local para fornecer feedback visual
+            setData((prevData) =>
+                prevData.map((item) =>
+                    item.id === id ? { ...item, posted: !currentStatus } : item
+                )
+            );
+
+            // Chama o serviço para atualizar o status no backend
+            await DeliverStatusService.updateDeliverStatus(id, !currentStatus);
+        } catch (error) {
+            console.error('Erro ao atualizar status:', error);
+
+            // Reverte a atualização local se a requisição falhar
+            setData((prevData) =>
+                prevData.map((item) =>
+                    item.id === id ? { ...item, posted: currentStatus } : item
+                )
+            );
+        }
     };
 
     const filteredData = data.filter((item) =>
-        item.nome.toLowerCase().includes(searchQuery.toLowerCase())
+        item.prize.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const status = await DeliverStatusService.getDeliverStatus();
+                setData(status);
+            } catch (error) {
+                console.error('Erro ao carregar dados:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
 
     return (
         <S.Container>
@@ -82,24 +89,38 @@ const StatusEntregaTemplate: React.FC = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {filteredData.map((item) => (
-                                <S.Tr key={item.id}>
-                                    <S.Td>{item.nome}</S.Td>
-                                    <S.Td>{item.dataResgate}</S.Td>
-                                    <S.Td>{item.pedido}</S.Td>
-                                    <S.Td>{item.endereco}</S.Td>
-                                    <S.Td>{item.postado ? 'Sim' : 'Não'}</S.Td>
-                                    <S.Td>
-                                        <S.Checkbox
-                                            type="checkbox"
-                                            checked={item.postado}
-                                            onChange={() =>
-                                                handleCheckboxChange(item.id)
-                                            }
-                                        />
-                                    </S.Td>
-                                </S.Tr>
-                            ))}
+                            {filteredData.map((item) => {
+                                const date = new Date(item.redeemedDate);
+                                const formattedDate = `${String(
+                                    date.getDate()
+                                ).padStart(2, '0')}/${String(
+                                    date.getMonth() + 1
+                                ).padStart(2, '0')}/${date.getFullYear()}`;
+
+                                return (
+                                    <S.Tr key={item.id}>
+                                        <S.Td>{item.client.name}</S.Td>
+                                        <S.Td>{formattedDate}</S.Td>
+                                        <S.Td>{item.prize.name}</S.Td>
+                                        <S.Td>{item.endereco}</S.Td>
+                                        <S.Td>
+                                            {item.posted ? 'Sim' : 'Não'}
+                                        </S.Td>
+                                        <S.Td>
+                                            <S.Checkbox
+                                                type="checkbox"
+                                                checked={item.posted}
+                                                onChange={() =>
+                                                    handleCheckboxChange(
+                                                        item.id,
+                                                        item.posted
+                                                    )
+                                                }
+                                            />
+                                        </S.Td>
+                                    </S.Tr>
+                                );
+                            })}
                         </tbody>
                     </S.Table>
                 </S.Background>
