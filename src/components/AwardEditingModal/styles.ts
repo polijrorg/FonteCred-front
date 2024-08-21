@@ -34,14 +34,23 @@ export const ImagePlaceholder = styled.img`
 `;
 
 export const ItemDetails = styled.div`
-    flex: 1;
     margin-left: 16px;
+    margin-top: 30px;
+    width: 400px;
 `;
 
 export const Detail = styled.div`
     display: flex;
     flex-direction: column;
     margin-bottom: 8px;
+`;
+
+export const DetailDiv = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
 `;
 
 export const DetailTitle = styled.span`
@@ -127,6 +136,17 @@ export const EditButton = styled.button`
 export const EditIcon = styled.img`
     margin-left: 8px;
     cursor: pointer;
+`;
+
+export const EditPen = styled.img`
+    height: 20px;
+    width: 20px;
+    cursor: pointer;
+
+    :hover {
+        scale: 1.1;
+        transition: 0.1s;
+    }
 `;
 
 export const DeleteIcon = styled.img`
