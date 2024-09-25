@@ -1,15 +1,37 @@
 /* eslint-disable no-console */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AwardsService from 'services/AwardsService';
+import ConfirmationModal from 'components/ConfirmationModal';
 import * as S from './styles';
 
-interface Item {
+interface Value {
+    id: string;
+    value: string;
+    isAvailable: boolean;
+    optionId: string;
+}
+
+interface Option {
+    id: string;
+    title: string;
+    prizeCode: string;
+    prizeVersion: number;
+    values: Value[];
+}
+
+interface Awards {
     code: string;
     name: string;
-    requiredPoints: number;
+    percentage: number;
     imageUrl: string | null;
     description: string;
     sequencyValue: number;
+    options: Option[]; // Adicione esta linha para incluir as opções
+}
+
+interface Item extends Awards {
+    size?: string; // Adicionado para a seleção de tamanho
+    color?: string; // Adicionado para a seleção de cor
 }
 
 interface AwardEditingModalProps {
@@ -23,6 +45,10 @@ const AwardEditingModal: React.FC<AwardEditingModalProps> = ({
     onClose,
     onSave
 }) => {
+    const [sizes, setSizes] = useState<Value[]>([]);
+    const [colors, setColors] = useState<Value[]>([]);
+    const [isConfirmationModalVisible, setIsConfirmationModalVisible] =
+        useState(false);
     const [editingFields, setEditingFields] = useState<{
         [key: string]: boolean;
     }>({});
@@ -54,21 +80,64 @@ const AwardEditingModal: React.FC<AwardEditingModalProps> = ({
         }
     };
 
+    useEffect(() => {
+        const fetchPrizeDetails = async () => {
+            try {
+                const prizeDetails = await AwardsService.getPrizeDetails(
+                    item.code
+                );
+
+                // Não filtre por `isAvailable`, capture todos os valores
+                const sizeOption = prizeDetails.options.find(
+                    (option) => option.title.toLowerCase() === 'tamanho'
+                );
+                const colorOption = prizeDetails.options.find(
+                    (option) => option.title.toLowerCase() === 'cor'
+                );
+
+                // Atualize os estados de tamanho e cor com todos os valores
+                if (sizeOption) {
+                    setSizes(sizeOption.values); // Agora setSizes espera um array do tipo Value[]
+                }
+                if (colorOption) {
+                    setColors(colorOption.values); // Agora setColors espera um array do tipo Value[]
+                }
+            } catch (error) {
+                console.error('Erro ao buscar os detalhes do prêmio:', error);
+            }
+        };
+
+        fetchPrizeDetails();
+    }, [item.code]);
+
     return (
         <S.Card>
+            {isConfirmationModalVisible && (
+                <ConfirmationModal
+                    onConfirm={() => {
+                        handleDeletePrize();
+                        setIsConfirmationModalVisible(false);
+                    }}
+                    onCancel={() => setIsConfirmationModalVisible(false)}
+                />
+            )}
             <S.DeleteButtons>
                 <S.DeleteIcon src="assets/icons/toggle.svg" />
                 <S.DeleteIcon
                     src="assets/icons/delete.svg"
-                    onClick={handleDeletePrize}
+                    onClick={() => setIsConfirmationModalVisible(true)}
                 />
             </S.DeleteButtons>
             <S.TopSection>
                 <S.ImageWrapper>
-                    <S.ImagePlaceholder
-                        src="assets/images/camera.svg"
-                        alt="Placeholder"
-                    />
+                    {item.imageUrl ? (
+                        <S.Image src={item.imageUrl} alt={item.name} />
+                    ) : (
+                        <S.ImagePlaceholder
+                            src="assets/images/camera.svg"
+                            alt="Placeholder"
+                        />
+                    )}
                     <S.ItemDetails>
                         <S.DetailDiv>
                             <S.Detail>
@@ -98,29 +167,29 @@ const AwardEditingModal: React.FC<AwardEditingModalProps> = ({
 
                         <S.DetailDiv>
                             <S.Detail>
-                                <S.DetailTitle>Pontos</S.DetailTitle>
-                                {editingFields.requiredPoints ? (
+                                <S.DetailTitle>
+                                    Percentual de resgate
+                                </S.DetailTitle>
+                                {editingFields.percentage ? (
                                     <input
                                         type="number"
-                                        value={editedValues.requiredPoints}
+                                        value={editedValues.percentage}
                                         onChange={(e) =>
                                             handleInputChange(
-                                                'requiredPoints',
+                                                'percentage',
                                                 +e.target.value
                                             )
                                         }
                                     />
                                 ) : (
                                     <S.DetailText>
-                                        {editedValues.requiredPoints}
+                                        {editedValues.percentage}
                                     </S.DetailText>
                                 )}
                             </S.Detail>
                             <S.EditPen
                                 src="assets/icons/editingPen.svg"
-                                onClick={() =>
-                                    handleEditClick('requiredPoints')
-                                }
+                                onClick={() => handleEditClick('percentage')}
                             />
                         </S.DetailDiv>
 
@@ -207,14 +276,45 @@ const AwardEditingModal: React.FC<AwardEditingModalProps> = ({
                     </S.ItemDetails>
                 </S.ImageWrapper>
             </S.TopSection>
-            <S.Sizes>
-                <S.SizeTitle>Tamanhos</S.SizeTitle>
-                {['PP', 'P', 'M', 'G', 'GG'].map((size) => (
-                    <S.SizeButton key={size} selected={size === 'P'}>
-                        {size}
-                    </S.SizeButton>
-                ))}
-            </S.Sizes>
+            {sizes.length > 0 && (
+                <S.Sizes>
+                    <S.SizeTitle>Tamanhos</S.SizeTitle>
+                    {sizes.map(({ value, isAvailable }) => (
+                        <S.SizeButton
+                            key={value}
+                            selected={isAvailable}
+                            onClick={() =>
+                                setEditedValues((prev) => ({
+                                    ...prev,
+                                    size: value
+                                }))
+                            }
+                        >
+                            {value}
+                        </S.SizeButton>
+                    ))}
+                </S.Sizes>
+            )}
+
+            {colors.length > 0 && (
+                <S.Colors>
+                    <S.ColorTitle>Cores</S.ColorTitle>
+                    {colors.map(({ value, isAvailable }) => (
+                        <S.ColorButton
+                            key={value}
+                            selected={isAvailable} // Preenchida ou não dependendo de isAvailable
+                            onClick={() =>
+                                setEditedValues((prev) => ({
+                                    ...prev,
+                                    color: value
+                                }))
+                            }
+                        >
+                            {value}
+                        </S.ColorButton>
+                    ))}
+                </S.Colors>
+            )}
             <S.ActionButtons>
                 <S.CancelButton onClick={onClose}>Cancelar</S.CancelButton>
                 <S.EditButton onClick={handleSave}>Confirmar</S.EditButton>

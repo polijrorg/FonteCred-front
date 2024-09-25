@@ -3,7 +3,7 @@ import { defaultTheme } from 'styles';
 
 export const Card = styled.div`
     background-color: ${defaultTheme.colors.primary.dark};
-    padding: 16px;
+    padding: 40px;
     border-radius: 8px;
     border: solid black 1px;
     width: 800px;
@@ -121,7 +121,6 @@ export const ActionButtons = styled.div`
     justify-content: flex-end;
     gap: 16px;
     align-items: center;
-    margin-top: 24px;
 `;
 
 export const DeleteButtons = styled.div`
@@ -217,9 +216,111 @@ export const Toggle = styled.input.attrs({ type: 'checkbox' })`
     }
 `;
 
-export const Image = styled.img`
-    width: 280px;
-    height: 280px;
-    object-fit: cover;
-    border-radius: 8px;
+export const AddCharacteristicButton = styled.button`
+    background-color: ${defaultTheme.colors.primary.dark};
+    color: #fff;
+    border: 1px solid #fff;
+    border-radius: 4px;
+    padding: 8px 16px;
+
+    &:hover {
+        transition: 0.1s;
+        scale: 1.1;
+        cursor: pointer;
+    }
+`;
+
+export const ActionButtonsDiv = styled.div`
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    align-items: center;
+    margin-top: 24px;
+`;
+
+export const SizeTitleContainer = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 8px;
+`;
+
+export const DeleteIcon2 = styled.img`
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    transition: 0.3s;
+
+    &:hover {
+        opacity: 0.7;
+    }
+`;
+
+export const DeleteIcon3 = styled.img`
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+    transition: 0.3s;
+    &:hover {
+        opacity: 0.7;
+    }
+`;
+
+export const DeleteIcon3Div = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+`;
+
+export const ColorContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    margin-top: 16px;
+`;
+
+export const ColorTitleContainer = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 8px;
+`;
+
+export const ColorPreview = styled.div`
+    width: 24px;
+    height: 24px;
+    border: 1px solid #000;
+    margin-top: 8px;
+`;
+
+export const ColorBox = styled.div`
+    width: 32px;
+    height: 32px;
+    margin: 4px;
+    border-radius: 4px;
+    border: 1px solid #000;
+    display: inline-block;
+    cursor: pointer;
+`;
+
+export const FinishButton = styled.button`
+    background-color: #56b634;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    margin-top: 8px;
+    cursor: pointer;
+    &:hover {
+        background-color: #449a27;
+    }
+`;
+
+export const ColorBoxText = styled.div`
+    display: inline-block;
+    padding: 8px;
+    margin: 4px;
+    border: 1px solid #fff;
+    border-radius: 4px;
+    color: #fff; /* cor do texto */
+    text-align: center;
+    cursor: pointer;
 `;
