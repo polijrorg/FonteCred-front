@@ -1,14 +1,31 @@
 import { AxiosResponse } from 'axios';
 import api from './api';
 
+interface Value {
+    id: string;
+    value: string;
+    isAvailable: boolean;
+    optionId: string;
+}
+
+interface Option {
+    id: string;
+    title: string;
+    prizeCode: string;
+    prizeVersion: number;
+    values: Value[];
+}
+
 interface Awards {
     code: string;
     name: string;
-    requiredPoints: number;
+    percentage: number;
     imageUrl: string | null;
     description: string;
     sequencyValue: number;
+    options: Option[]; // Adicione esta linha para incluir as opções
 }
+
 export default class AwardsService {
     static async getAwardsInfo(
         page = 0,
@@ -41,5 +58,13 @@ export default class AwardsService {
 
     static async deletePrize(prizeId: string): Promise<void> {
         await api.delete(`/prizes/delete/${prizeId}`);
+    }
+
+    static async createPrize(formData: FormData): Promise<void> {
+        await api.post('/prizes/register', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
     }
 }

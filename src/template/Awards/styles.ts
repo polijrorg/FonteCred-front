@@ -102,3 +102,17 @@ export const Overlay = styled.div`
     background: rgba(0, 0, 0, 0.5);
     z-index: 999;
 `;
+
+export const CreateAwardButton = styled.button`
+    background-color: ${defaultTheme.colors.primary.dark};
+    color: #fff;
+    border: 1px solid #56b634;
+    border-radius: 4px;
+    padding: 8px 16px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #56b634;
+        color: ${defaultTheme.colors.primary.dark};
+    }
+`;

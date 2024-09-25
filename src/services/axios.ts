@@ -6,10 +6,10 @@ export function getApi() {
     parseCookies();
 
     const api = axios.create({
-        baseURL: 'https://fontecred.polijrinternal.com/' // Altere para sua URL base
+        baseURL: 'https://fontecred.polijrinternal.com/'
     });
 
-    // adicionando basic auth no cabeçalho da requisição
+    // autenticação
     api.defaults.auth = {
         username: 'admin',
         password: 'senha'
