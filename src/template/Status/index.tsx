@@ -50,8 +50,11 @@ const StatusEntregaTemplate: React.FC = () => {
         }
     };
 
-    const filteredData = data.filter((item) =>
-        item.prize.name.toLowerCase().includes(searchQuery.toLowerCase())
+    const filteredData = data.filter(
+        (item) =>
+            item.prize &&
+            item.prize.name &&
+            item.prize.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
     useEffect(() => {

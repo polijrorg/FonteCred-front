@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useEffect, useState } from 'react';
 import Header from 'components/Header';
 import Sidebar from 'components/Sidebar';
@@ -8,9 +9,6 @@ import * as S from './styles';
 
 const ClientListTemplate: React.FC = () => {
     const [data, setData] = useState<Client[]>([]);
-    // const [loading, setLoading] = useState(true);
-    // const [error, setError] = useState<string | null>(null);
-
     const [searchQuery, setSearchQuery] = useState('');
 
     const filteredData = data.filter((client) =>
@@ -27,19 +25,33 @@ const ClientListTemplate: React.FC = () => {
                     'A-Z'
                 );
 
-                const mappedClients = clients.map((client) => ({
-                    ...client,
-                    nome: client.name,
-                    pontos: client.points,
-                    ultimaRetirada: client.lastRedeem,
-                    ultimoAcesso: client.lastLogin
-                }));
+                const mappedClients = clients.map((client) => {
+                    // Verificar e formatar 'lastRedeem.date'
+                    const formattedLastRedeemDate =
+                        client.lastRedeem && client.lastRedeem.date
+                            ? `${String(
+                                  new Date(client.lastRedeem.date).getUTCDate()
+                              ).padStart(2, '0')}/${String(
+                                  new Date(
+                                      client.lastRedeem.date
+                                  ).getUTCMonth() + 1
+                              ).padStart(2, '0')}/${new Date(
+                                  client.lastRedeem.date
+                              ).getUTCFullYear()}`
+                            : 'Data não disponível';
+
+                    return {
+                        ...client,
+                        ultimaRetirada: `${
+                            client.lastRedeem?.name || 'Não especificado'
+                        } - ${formattedLastRedeemDate}`, // Concatenando o nome e a data como uma única string
+                        ultimoAcesso: client.lastLogin
+                    };
+                });
 
                 setData(mappedClients);
-                // setLoading(false);
             } catch (err) {
-                // setError('Erro ao carregar os dados');
-                // setLoading(false);
+                console.error('Erro ao carregar os dados:', err);
             }
         };
 

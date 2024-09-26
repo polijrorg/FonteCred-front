@@ -21,7 +21,6 @@ const Table: React.FC<TableProps> = ({ data }) => {
                 <thead>
                     <tr>
                         <S.TableHeader>Nome</S.TableHeader>
-                        <S.TableHeader>Pontos</S.TableHeader>
                         <S.TableHeader>Última retirada</S.TableHeader>
                         <S.TableHeader>Último acesso</S.TableHeader>
                     </tr>
@@ -30,8 +29,7 @@ const Table: React.FC<TableProps> = ({ data }) => {
                     {data.map((client) => (
                         <S.TableRow key={client.id}>
                             <S.TableData>{client.name}</S.TableData>
-                            <S.TableData>{client.points}</S.TableData>
-                            <S.TableData>{client.lastRedeem}</S.TableData>
+                            <S.TableData>{client.lastRedeem?.name}</S.TableData>
                             <S.TableData>{client.lastLogin}</S.TableData>
                         </S.TableRow>
                     ))}

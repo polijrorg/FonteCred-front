@@ -32,6 +32,7 @@ interface Awards {
     description: string;
     sequencyValue: number;
     options: Option[];
+    timesRedeemed: number;
 }
 
 interface Item extends Awards {

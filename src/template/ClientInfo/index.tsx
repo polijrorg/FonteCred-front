@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable no-restricted-globals */
 /* eslint-disable react/button-has-type */
 import React, { useState } from 'react';
@@ -12,7 +13,6 @@ import * as S from './styles';
 interface DataItemDelivery {
     id: string;
     Item: string;
-    Cor: string;
     Codigo: string;
     DataResgate: string;
 }
@@ -25,35 +25,44 @@ const ClientInfoTemplate: React.FC = () => {
 
     const handleClientIdSubmit = async () => {
         if (clientId) {
-            const data = await ClientInfoService.getClientInfo(clientId);
-            setClientData(data);
+            try {
+                const data = await ClientInfoService.getClientInfo(clientId);
+                console.log('Dados do cliente recebidos:', data); // Log para verificar os dados recebidos
+                setClientData(data);
 
-            const mappedDeliveries = data.deliveries.map((delivery) => {
-                let formattedDate = 'Data Inválida';
-                if (delivery.redeemDate) {
-                    const date = new Date(delivery.redeemDate);
-                    if (!isNaN(date.getTime())) {
-                        const day = String(date.getUTCDate()).padStart(2, '0');
-                        const month = String(date.getUTCMonth() + 1).padStart(
-                            2,
-                            '0'
-                        );
-                        const year = String(date.getUTCFullYear());
-                        formattedDate = `${day}/${month}/${year}`;
-                    }
-                }
+                // Filtrar somente os itens resgatados (onde redeemed é true)
+                const redeemedItems = data.availablePrizes
+                    .filter((prize) => prize.redeemed === true)
+                    .map((prize) => {
+                        let formattedDate = 'Data Inválida';
+                        if (prize.redeemed_at) {
+                            const date = new Date(prize.redeemed_at);
+                            if (!isNaN(date.getTime())) {
+                                const day = String(date.getUTCDate()).padStart(
+                                    2,
+                                    '0'
+                                );
+                                const month = String(
+                                    date.getUTCMonth() + 1
+                                ).padStart(2, '0');
+                                const year = String(date.getUTCFullYear());
+                                formattedDate = `${day}/${month}/${year}`;
+                            }
+                        }
 
-                return {
-                    id: delivery.prizeCode,
-                    Item: delivery.itemName || 'Item não especificado',
-                    Cor: delivery.color || 'Cor não especificada',
-                    Codigo: delivery.prizeCode,
-                    DataResgate: formattedDate
-                };
-            });
+                        return {
+                            id: prize.prizeCode,
+                            Item: prize.prize?.name || 'Item não especificado',
+                            Codigo: prize.prizeCode,
+                            DataResgate: formattedDate
+                        };
+                    });
 
-            setData2(mappedDeliveries);
-            setIsModalOpen(false);
+                setData2(redeemedItems);
+                setIsModalOpen(false);
+            } catch (error) {
+                console.error('Erro ao buscar informações do cliente:', error);
+            }
         }
     };
 
@@ -66,7 +75,14 @@ const ClientInfoTemplate: React.FC = () => {
                     <S.SubtitleDiv>
                         <S.Subtitle>Informações do cliente</S.Subtitle>
                     </S.SubtitleDiv>
-                    {clientData && <Table data={clientData} />}
+                    {clientData && (
+                        <Table
+                            data={{
+                                ...clientData,
+                                lastRedeem: clientData.lastRedeem.name // Ajustando para passar apenas a string do nome
+                            }}
+                        />
+                    )}
                     <ItemTable data={data2} />
                 </S.Background>
             </S.Wrapper>
