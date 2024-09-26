@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { AxiosResponse } from 'axios';
 import api from './api';
 
@@ -8,16 +9,41 @@ export interface Deliveries {
     color: string;
 }
 
-export interface FavoritePrizes {
-    name: string;
+export interface PrizeDetails {
     code: string;
+    version: number;
+    name: string;
+    percentage: number;
+    description: string;
+    sequencyValue: number;
+    timesRedeemed: number;
+    imageUrl: string | null;
+    externalUrl: string | null;
+    isActive: boolean;
+    isCoupon: boolean;
+    isLegacy: boolean;
+}
+
+export interface AvailablePrizes {
+    prizeCode: string;
+    prizeVersion: number;
+    clientId: string;
+    available: boolean;
+    available_at: string;
+    redeemed: boolean;
+    redeemed_at: string | null;
+    couponCode: string | null;
+    couponUsed: boolean;
+    deliveryId: string | null;
+    created_at: string;
+    updated_at: string;
+    prize: PrizeDetails;
 }
 
 export interface ClientInfos {
     id: string;
     name: string;
     points: number;
-    lastRedeem: string;
     lastLogin: string;
     cep: string;
     cpf: string;
@@ -26,8 +52,12 @@ export interface ClientInfos {
     cidade: string;
     uf: string;
     complemento: string;
-    favoritePrizes: FavoritePrizes[];
     deliveries: Deliveries[];
+    availablePrizes: AvailablePrizes[];
+    lastRedeem: {
+        name: string;
+        date: Date;
+    };
 }
 
 export default class ClientInfoService {

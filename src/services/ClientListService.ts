@@ -1,12 +1,32 @@
+/* eslint-disable camelcase */
 import { AxiosResponse } from 'axios';
 import api from './api';
 
 export interface Client {
     id: string;
     name: string;
-    points: number;
-    lastRedeem: string;
+    email: string;
+    cpf: string;
+    cellphone: string;
+    cep: string;
+    endereco: string;
+    numero: string;
+    complemento: string;
+    bairro: string;
+    uf: string;
+    cidade: string;
+    blockedProgression: boolean;
+    progression: number;
+    singleMonthProgression: number;
     lastLogin: string;
+    accesses: number;
+    avatar: number;
+    created_at: string;
+    updated_at: string;
+    lastRedeem: {
+        name: string;
+        date: Date;
+    };
 }
 
 export default class ClientListService {

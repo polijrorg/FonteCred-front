@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { AxiosResponse } from 'axios';
 import api from './api';
 
@@ -24,6 +25,7 @@ interface Awards {
     description: string;
     sequencyValue: number;
     options: Option[]; // Adicione esta linha para incluir as opções
+    timesRedeemed: number;
 }
 
 export default class AwardsService {
@@ -44,8 +46,12 @@ export default class AwardsService {
         return response.data;
     }
 
-    static async updatePrize(updatePrize: Awards): Promise<void> {
-        await api.patch('/prizes/update', updatePrize);
+    static async updatePrize(updatePrize: FormData): Promise<void> {
+        await api.patch('/prizes/update', updatePrize, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
     }
 
     static async getPrizeDetails(itemCode: string): Promise<Awards> {
@@ -78,5 +84,20 @@ export default class AwardsService {
                 'Content-Type': 'application/json'
             }
         });
+    }
+
+    static async updatePrizeOption(
+        prizeId: string,
+        optionData: any
+    ): Promise<void> {
+        await api.patch(`/prizes/update-option/${prizeId}`, optionData, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+    }
+
+    static async deletePrizeOption(optionId: string): Promise<void> {
+        await api.delete(`/prizes/delete-option/${optionId}`);
     }
 }
