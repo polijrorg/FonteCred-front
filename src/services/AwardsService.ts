@@ -60,10 +60,22 @@ export default class AwardsService {
         await api.delete(`/prizes/delete/${prizeId}`);
     }
 
-    static async createPrize(formData: FormData): Promise<void> {
-        await api.post('/prizes/register', formData, {
+    static async createPrize(formData: FormData): Promise<Awards> {
+        const response = await api.post<Awards>('/prizes/register', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
+            }
+        });
+        return response.data;
+    }
+
+    static async createPrizeOptions(
+        prizeId: string,
+        option: Option
+    ): Promise<void> {
+        await api.post(`/prizes/create-option/${prizeId}`, option, {
+            headers: {
+                'Content-Type': 'application/json'
             }
         });
     }

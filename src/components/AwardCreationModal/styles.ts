@@ -118,7 +118,6 @@ export const ColorButton = styled.button<{ selected: boolean }>`
 
 export const ActionButtons = styled.div`
     display: flex;
-    justify-content: flex-end;
     gap: 16px;
     align-items: center;
 `;
@@ -133,6 +132,7 @@ export const DeleteButtons = styled.div`
 export const CancelButton = styled.button`
     background-color: ${defaultTheme.colors.primary.dark};
     color: #fff;
+    margin-top: 5px;
     border: 1px solid #fff;
     border-radius: 4px;
     padding: 8px 16px;
@@ -323,4 +323,42 @@ export const ColorBoxText = styled.div`
     color: #fff; /* cor do texto */
     text-align: center;
     cursor: pointer;
+`;
+
+export const ExtraModalOverlay = styled.div`
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`;
+
+export const ExtraModal = styled.div`
+    background-color: ${defaultTheme.colors.primary.dark};
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 8px;
+    width: 100%;
+`;
+
+export const ExtraModalTitle = styled.text`
+    margin-bottom: 15px;
+    font-weight: bold;
+    font-size: 24px;
+    color: ${defaultTheme.colors.white};
+`;
+
+export const ExtraInfoButtonsDiv = styled.div`
+    display: flex;
+    width: 100%;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
 `;
