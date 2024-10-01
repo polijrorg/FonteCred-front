@@ -14,6 +14,8 @@ export interface Client {
     complemento: string;
     bairro: string;
     uf: string;
+    ultimaRetirada: string;
+    ultimoAcesso: string;
     cidade: string;
     blockedProgression: boolean;
     progression: number;
