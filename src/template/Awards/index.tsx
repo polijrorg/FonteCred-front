@@ -37,6 +37,7 @@ interface Awards {
 
 interface Item extends Awards {
     options: Option[];
+    timesRedeemed: number;
 }
 
 interface NewAward {
@@ -55,6 +56,7 @@ const Awards: React.FC = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedItem, setSelectedItem] = useState<Item | null>(null);
     const [isCreatingNewAward, setIsCreatingNewAward] = useState(false);
+    const [, setSelectedAwardId] = useState<string | null>(null);
 
     const filteredItems = data.filter((item) =>
         item.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -62,6 +64,8 @@ const Awards: React.FC = () => {
 
     const handleEditClick = (item: Item) => {
         setSelectedItem(item);
+        setSelectedAwardId(item.code); // Salva o ID do prêmio
+        console.log('ID do prêmio selecionado:', item.code);
     };
 
     const handleCreateAward = () => {

@@ -159,6 +159,22 @@ export const EditButton = styled.button`
     }
 `;
 
+export const EditButton2 = styled.button`
+    background-color: ${defaultTheme.colors.primary.main};
+    color: #333;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+
+    &:hover {
+        transition: 0.1s;
+        scale: 1.1;
+        cursor: pointer;
+    }
+`;
+
 export const EditIcon = styled.img`
     margin-left: 8px;
     cursor: pointer;
@@ -178,6 +194,18 @@ export const EditPen = styled.img`
 export const DeleteIcon = styled.img`
     height: 36px;
     width: 36px;
+
+    &:hover {
+        transition: 0.1s;
+        scale: 1.1;
+        cursor: pointer;
+    }
+`;
+
+export const ActiveButton = styled.img`
+    height: 30px;
+    width: 36px;
+    border-radius: 15px;
 
     &:hover {
         transition: 0.1s;
@@ -222,4 +250,80 @@ export const Image = styled.img`
     height: 280px;
     object-fit: cover;
     border-radius: 8px;
+`;
+
+export const RemoveButton = styled.button`
+    background-color: transparent;
+    border: solid red 1px;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #fff;
+    font-size: 15px;
+    margin-left: 15px;
+    width: 20px;
+
+    &:hover {
+        color: #56b634;
+        background-color: red;
+    }
+`;
+
+export const AddModalBackdrop = styled.div`
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Cor de fundo semi-transparente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Certifique-se de que o modal está no topo */
+`;
+
+export const AddModalContent = styled.div`
+    background-color: #fff; /* Fundo branco */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    width: 400px; /* Largura do modal */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`;
+
+export const AddModalTitle = styled.h2`
+    margin: 0 0 15px 0;
+    font-size: 20px;
+    color: #333;
+`;
+
+export const AddModalInput = styled.input`
+    width: 100%; /* Ocupa toda a largura */
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+
+    &:focus {
+        outline: none;
+        border-color: #007bff; /* Cor da borda ao focar */
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.3); /* Sombras ao focar */
+    }
+`;
+
+export const RemoveButtonCategory = styled.button`
+    background-color: transparent;
+    border: solid red 1px;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #fff;
+    font-size: 15px;
+    width: 20px;
+
+    &:hover {
+        color: #56b634;
+        background-color: red;
+    }
 `;

@@ -4,18 +4,18 @@ import * as S from './styles';
 interface ConfirmationModalProps {
     onConfirm: () => void;
     onCancel: () => void;
+    message: string;
 }
 
 export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
     onConfirm,
-    onCancel
+    onCancel,
+    message
 }) => {
     return (
         <S.ModalWrapper>
             <S.ModalContent>
-                <S.Question>
-                    Tem certeza que deseja apagar esse prêmio?
-                </S.Question>
+                <S.Question>{message}</S.Question>
                 <S.ButtonsWrapper>
                     <S.CancelButton onClick={onCancel}>Não</S.CancelButton>
                     <S.ConfirmButton onClick={onConfirm}>Sim</S.ConfirmButton>
