@@ -1,25 +1,27 @@
 import React, { useState } from 'react';
+import { useRouter } from 'next/router';
 import * as S from './styles';
 
 const Sidebar: React.FC = () => {
     const [activePage, setActivePage] = useState<string>('Home');
+    const router = useRouter();
 
     const handleNavigation = (page: string) => {
         setActivePage(page);
         if (page === 'Home') {
-            window.location.href = 'http://localhost:3001';
+            router.push('/');
         } else if (page === 'Clientes') {
-            window.location.href = 'http://localhost:3001/ClientList';
+            router.push('/ClientList');
         } else if (page === 'Awards') {
-            window.location.href = 'http://localhost:3001/Awards';
+            router.push('/Awards');
         } else if (page === 'ClientInfo') {
-            window.location.href = 'http://localhost:3001/ClientInfo';
+            router.push('/ClientInfo');
         } else if (page === 'Rules') {
-            window.location.href = 'http://localhost:3001/Rules';
+            router.push('/Rules');
         } else if (page === 'StatusDelivery') {
-            window.location.href = 'http://localhost:3001/StatusDelivery';
+            router.push('/StatusDelivery');
         } else if (page === 'StatusCoupon') {
-            window.location.href = 'http://localhost:3001/StatusCoupon';
+            router.push('/StatusCoupon');
         }
     };
 
@@ -50,7 +52,7 @@ const Sidebar: React.FC = () => {
             <S.MniWrapper onClick={() => handleNavigation('Rules')}>
                 <S.Symbol src="assets/icons/PranchetaSymbol.svg" />
                 <S.PageTitle isActive={activePage === 'Rules'}>
-                    Politicas de Pontuação
+                    Políticas de Pontuação
                 </S.PageTitle>
             </S.MniWrapper>
             <S.MniWrapper onClick={() => handleNavigation('StatusDelivery')}>
