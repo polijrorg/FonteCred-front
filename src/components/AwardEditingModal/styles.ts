@@ -7,9 +7,9 @@ export const Card = styled.div`
     border-radius: 8px;
     border: solid black 1px;
     width: 800px;
+    height: fit-content;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
 `;
 
 export const TopSection = styled.div`
@@ -19,13 +19,11 @@ export const TopSection = styled.div`
 `;
 
 export const ImageWrapper = styled.div`
-    height: 160px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 8px;
     margin-top: 50px;
-    margin-bottom: 70px;
 `;
 
 export const ImagePlaceholder = styled.img`
@@ -35,8 +33,7 @@ export const ImagePlaceholder = styled.img`
 
 export const ItemDetails = styled.div`
     margin-left: 16px;
-    margin-top: 30px;
-    width: 400px;
+    width: 100%;
 `;
 
 export const Detail = styled.div`
@@ -246,9 +243,8 @@ export const Toggle = styled.input.attrs({ type: 'checkbox' })`
 `;
 
 export const Image = styled.img`
-    width: 280px;
-    height: 280px;
-    object-fit: cover;
+    width: 40%;
+    height: 40%;
     border-radius: 8px;
 `;
 

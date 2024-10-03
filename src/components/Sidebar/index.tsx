@@ -7,17 +7,19 @@ const Sidebar: React.FC = () => {
     const handleNavigation = (page: string) => {
         setActivePage(page);
         if (page === 'Home') {
-            window.location.href = 'http://localhost:3000';
+            window.location.href = 'http://localhost:3001';
         } else if (page === 'Clientes') {
-            window.location.href = 'http://localhost:3000/ClientList';
+            window.location.href = 'http://localhost:3001/ClientList';
         } else if (page === 'Awards') {
-            window.location.href = 'http://localhost:3000/Awards';
+            window.location.href = 'http://localhost:3001/Awards';
         } else if (page === 'ClientInfo') {
-            window.location.href = 'http://localhost:3000/ClientInfo';
+            window.location.href = 'http://localhost:3001/ClientInfo';
         } else if (page === 'Rules') {
-            window.location.href = 'http://localhost:3000/Rules';
-        } else if (page === 'Status') {
-            window.location.href = 'http://localhost:3000/Status';
+            window.location.href = 'http://localhost:3001/Rules';
+        } else if (page === 'StatusDelivery') {
+            window.location.href = 'http://localhost:3001/StatusDelivery';
+        } else if (page === 'StatusCoupon') {
+            window.location.href = 'http://localhost:3001/StatusCoupon';
         }
     };
 
@@ -51,10 +53,16 @@ const Sidebar: React.FC = () => {
                     Politicas de Pontuação
                 </S.PageTitle>
             </S.MniWrapper>
-            <S.MniWrapper onClick={() => handleNavigation('Status')}>
+            <S.MniWrapper onClick={() => handleNavigation('StatusDelivery')}>
                 <S.Symbol src="assets/icons/PranchetaSymbol.svg" />
-                <S.PageTitle isActive={activePage === 'Status'}>
-                    Status
+                <S.PageTitle isActive={activePage === 'StatusDelivery'}>
+                    Status de Entregas
+                </S.PageTitle>
+            </S.MniWrapper>
+            <S.MniWrapper onClick={() => handleNavigation('StatusCoupon')}>
+                <S.Symbol src="assets/icons/PranchetaSymbol.svg" />
+                <S.PageTitle isActive={activePage === 'StatusCoupon'}>
+                    Status de Cupons
                 </S.PageTitle>
             </S.MniWrapper>
         </S.Wrapper>

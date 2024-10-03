@@ -82,3 +82,14 @@ export const ArrowButton = styled.button`
         background: ${defaultTheme.colors.white};
     }
 `;
+
+export const Symbol = styled.img`
+    height: 32px;
+    width: 32px;
+
+    :hover {
+        transition: 0.5s;
+        scale: 1.1;
+        cursor: pointer;
+    }
+`;

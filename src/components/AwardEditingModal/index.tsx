@@ -392,7 +392,7 @@ const AwardEditingModal: React.FC<AwardEditingModalProps> = ({
                         />
                         <S.DeleteButtons>
                             <S.CancelButton
-                                onClick={() => setIsAddModalVisible(false)}
+                                onClick={() => setIsAddModalVisible2(false)}
                             >
                                 Cancelar
                             </S.CancelButton>

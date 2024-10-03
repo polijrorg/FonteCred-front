@@ -39,4 +39,23 @@ export default class DownloadService {
             console.error('Erro ao fazer download do CSV:', error);
         }
     }
+
+    static async downloadCSVDeliveries(): Promise<void> {
+        try {
+            const response = await api.get('/deliveries/download', {
+                responseType: 'blob' // Recebe o arquivo como um blob
+            });
+
+            // Criar um link temporário para realizar o download do arquivo
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'deliveries.csv'); // Nome do arquivo a ser baixado
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+        } catch (error) {
+            console.error('Erro ao fazer download do CSV:', error);
+        }
+    }
 }
