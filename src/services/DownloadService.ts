@@ -6,7 +6,7 @@ export default class DownloadService {
     static async downloadCSVClients(): Promise<void> {
         try {
             const response = await api.get('/clients/download', {
-                responseType: 'blob' // Isso é importante para receber o arquivo como um blob
+                responseType: 'blob'
             });
 
             const url = window.URL.createObjectURL(new Blob([response.data]));
@@ -24,14 +24,13 @@ export default class DownloadService {
     static async downloadCSVItens(): Promise<void> {
         try {
             const response = await api.get('/prizes/download', {
-                responseType: 'blob' // Recebe o arquivo como um blob
+                responseType: 'blob'
             });
 
-            // Criar um link temporário para realizar o download do arquivo
             const url = window.URL.createObjectURL(new Blob([response.data]));
             const link = document.createElement('a');
             link.href = url;
-            link.setAttribute('download', 'redeemed_items.csv'); // Nome do arquivo a ser baixado
+            link.setAttribute('download', 'redeemed_items.csv');
             document.body.appendChild(link);
             link.click();
             link.remove();
@@ -40,17 +39,48 @@ export default class DownloadService {
         }
     }
 
-    static async downloadCSVDeliveries(): Promise<void> {
+    static async downloadCSVDeliveries(
+        startOfPeriod: string,
+        endOfPeriod: string
+    ): Promise<void> {
         try {
             const response = await api.get('/deliveries/download', {
-                responseType: 'blob' // Recebe o arquivo como um blob
+                params: {
+                    startOfPeriod,
+                    endOfPeriod
+                },
+                responseType: 'blob'
             });
 
-            // Criar um link temporário para realizar o download do arquivo
             const url = window.URL.createObjectURL(new Blob([response.data]));
             const link = document.createElement('a');
             link.href = url;
-            link.setAttribute('download', 'deliveries.csv'); // Nome do arquivo a ser baixado
+            link.setAttribute('download', 'deliveries.csv');
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+        } catch (error) {
+            console.error('Erro ao fazer download do CSV:', error);
+        }
+    }
+
+    static async downloadCSVCoupons(
+        startOfPeriod: string,
+        endOfPeriod: string
+    ): Promise<void> {
+        try {
+            const response = await api.get('/prizes/coupons/download', {
+                params: {
+                    startOfPeriod,
+                    endOfPeriod
+                },
+                responseType: 'blob'
+            });
+
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'coupons.csv');
             document.body.appendChild(link);
             link.click();
             link.remove();

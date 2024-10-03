@@ -24,7 +24,7 @@ interface Awards {
     imageUrl: string | null;
     description: string;
     sequencyValue: number;
-    options: Option[]; // Adicione esta linha para incluir as opções
+    options: Option[];
     timesRedeemed: number;
 }
 
@@ -58,7 +58,7 @@ export default class AwardsService {
         const response = await api.get(`/prizes/${itemCode}`);
         return {
             ...response.data,
-            options: response.data.options || [] // Garante que options seja sempre um array
+            options: response.data.options || []
         };
     }
 
