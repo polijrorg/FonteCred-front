@@ -79,7 +79,6 @@ const Awards: React.FC = () => {
 
     const handleSaveNewAward = async (newAward: NewAward) => {
         try {
-            // Prepara os dados para o envio na requisição
             const formData = new FormData();
             if (newAward.code) {
                 formData.append('code', newAward.code.toString());
@@ -89,22 +88,18 @@ const Awards: React.FC = () => {
             formData.append('description', newAward.description);
             formData.append('sequencyValue', newAward.sequencyValue.toString());
 
-            // Adiciona a imagem do prêmio (caso exista)
             if (newAward.prizeImage) {
                 formData.append('prizeImage', newAward.prizeImage);
             }
 
             formData.append('isCoupon', newAward.isCoupon.toString());
 
-            // Adiciona as opções (tamanho e cor) se existirem
             if (newAward.options && newAward.options.length > 0) {
                 formData.append('options', JSON.stringify(newAward.options));
             }
 
-            // Faz a requisição para criar o novo prêmio
             await AwardsService.createPrize(formData);
 
-            // Atualiza a lista de prêmios e fecha o modal
             const updatedAwards = await AwardsService.getAwardsInfo(
                 0,
                 10,

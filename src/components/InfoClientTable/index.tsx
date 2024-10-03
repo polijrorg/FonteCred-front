@@ -23,10 +23,6 @@ interface TableProps {
 const Table: React.FC<TableProps> = ({ data }) => {
     return (
         <S.TableWrapper>
-            <S.ButtonsDiv>
-                <S.Icons src="assets/icons/greenPen.svg" />
-                <S.Icons src="assets/icons/Download2.svg" />
-            </S.ButtonsDiv>
             <S.Table>
                 <tbody>
                     <S.TableRow>
