@@ -3,6 +3,10 @@ import api from './api';
 
 export interface DeliverStatus {
     id: string;
+    numero: string;
+    bairro: string;
+    cidade: string;
+    uf: string;
     client: {
         name: string;
     };
@@ -12,6 +16,16 @@ export interface DeliverStatus {
     };
     endereco: string;
     posted: boolean;
+    prizeRedeemed: {
+        couponUsed: boolean;
+        prize: {
+            name: string;
+            isCoupon: boolean;
+        };
+        client: {
+            name: string;
+        };
+    };
 }
 
 export default class DeliverStatusService {

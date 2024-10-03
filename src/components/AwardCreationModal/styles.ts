@@ -3,13 +3,13 @@ import { defaultTheme } from 'styles';
 
 export const Card = styled.div`
     background-color: ${defaultTheme.colors.primary.dark};
-    padding: 16px;
+    padding: 40px;
     border-radius: 8px;
     border: solid black 1px;
     width: 800px;
-    height: fit-content;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
 `;
 
 export const TopSection = styled.div`
@@ -19,11 +19,13 @@ export const TopSection = styled.div`
 `;
 
 export const ImageWrapper = styled.div`
+    height: 160px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 8px;
     margin-top: 50px;
+    margin-bottom: 70px;
 `;
 
 export const ImagePlaceholder = styled.img`
@@ -33,7 +35,8 @@ export const ImagePlaceholder = styled.img`
 
 export const ItemDetails = styled.div`
     margin-left: 16px;
-    width: 100%;
+    margin-top: 30px;
+    width: 400px;
 `;
 
 export const Detail = styled.div`
@@ -115,10 +118,8 @@ export const ColorButton = styled.button<{ selected: boolean }>`
 
 export const ActionButtons = styled.div`
     display: flex;
-    justify-content: flex-end;
     gap: 16px;
     align-items: center;
-    margin-top: 24px;
 `;
 
 export const DeleteButtons = styled.div`
@@ -131,6 +132,7 @@ export const DeleteButtons = styled.div`
 export const CancelButton = styled.button`
     background-color: ${defaultTheme.colors.primary.dark};
     color: #fff;
+    margin-top: 5px;
     border: 1px solid #fff;
     border-radius: 4px;
     padding: 8px 16px;
@@ -148,22 +150,6 @@ export const EditButton = styled.button`
     border: none;
     border-radius: 4px;
     padding: 8px 16px;
-
-    &:hover {
-        transition: 0.1s;
-        scale: 1.1;
-        cursor: pointer;
-    }
-`;
-
-export const EditButton2 = styled.button`
-    background-color: ${defaultTheme.colors.primary.main};
-    color: #333;
-    border: none;
-    border-radius: 4px;
-    padding: 8px 16px;
-    margin-right: 10px;
-    margin-bottom: 10px;
 
     &:hover {
         transition: 0.1s;
@@ -191,18 +177,6 @@ export const EditPen = styled.img`
 export const DeleteIcon = styled.img`
     height: 36px;
     width: 36px;
-
-    &:hover {
-        transition: 0.1s;
-        scale: 1.1;
-        cursor: pointer;
-    }
-`;
-
-export const ActiveButton = styled.img`
-    height: 30px;
-    width: 36px;
-    border-radius: 15px;
 
     &:hover {
         transition: 0.1s;
@@ -242,84 +216,149 @@ export const Toggle = styled.input.attrs({ type: 'checkbox' })`
     }
 `;
 
-export const Image = styled.img`
-    width: 40%;
-    height: 40%;
-    border-radius: 8px;
-`;
-
-export const RemoveButton = styled.button`
-    background-color: transparent;
-    border: solid red 1px;
-    border-radius: 4px;
-    cursor: pointer;
+export const AddCharacteristicButton = styled.button`
+    background-color: ${defaultTheme.colors.primary.dark};
     color: #fff;
-    font-size: 15px;
-    margin-left: 15px;
-    width: 20px;
+    border: 1px solid #fff;
+    border-radius: 4px;
+    padding: 8px 16px;
 
     &:hover {
-        color: #56b634;
-        background-color: red;
+        transition: 0.1s;
+        scale: 1.1;
+        cursor: pointer;
     }
 `;
 
-export const AddModalBackdrop = styled.div`
+export const ActionButtonsDiv = styled.div`
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    align-items: center;
+    margin-top: 24px;
+`;
+
+export const SizeTitleContainer = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 8px;
+`;
+
+export const DeleteIcon2 = styled.img`
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    transition: 0.3s;
+
+    &:hover {
+        opacity: 0.7;
+    }
+`;
+
+export const DeleteIcon3 = styled.img`
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+    transition: 0.3s;
+    &:hover {
+        opacity: 0.7;
+    }
+`;
+
+export const DeleteIcon3Div = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+`;
+
+export const ColorContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    margin-top: 16px;
+`;
+
+export const ColorTitleContainer = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 8px;
+`;
+
+export const ColorPreview = styled.div`
+    width: 24px;
+    height: 24px;
+    border: 1px solid #000;
+    margin-top: 8px;
+`;
+
+export const ColorBox = styled.div`
+    width: 32px;
+    height: 32px;
+    margin: 4px;
+    border-radius: 4px;
+    border: 1px solid #000;
+    display: inline-block;
+    cursor: pointer;
+`;
+
+export const FinishButton = styled.button`
+    background-color: #56b634;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    margin-top: 8px;
+    cursor: pointer;
+    &:hover {
+        background-color: #449a27;
+    }
+`;
+
+export const ColorBoxText = styled.div`
+    display: inline-block;
+    padding: 8px;
+    margin: 4px;
+    border: 1px solid #fff;
+    border-radius: 4px;
+    color: #fff; /* cor do texto */
+    text-align: center;
+    cursor: pointer;
+`;
+
+export const ExtraModalOverlay = styled.div`
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5); /* Cor de fundo semi-transparente */
+    background: rgba(0, 0, 0, 0.5);
     display: flex;
-    justify-content: center;
     align-items: center;
-    z-index: 1000; /* Certifique-se de que o modal está no topo */
+    justify-content: center;
 `;
 
-export const AddModalContent = styled.div`
-    background-color: #fff; /* Fundo branco */
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-    width: 400px; /* Largura do modal */
+export const ExtraModal = styled.div`
+    background-color: ${defaultTheme.colors.primary.dark};
+    height: fit-content;
     display: flex;
     flex-direction: column;
+    padding: 20px;
+    border-radius: 8px;
+    width: 100%;
+`;
+
+export const ExtraModalTitle = styled.text`
+    margin-bottom: 15px;
+    font-weight: bold;
+    font-size: 24px;
+    color: ${defaultTheme.colors.white};
+`;
+
+export const ExtraInfoButtonsDiv = styled.div`
+    display: flex;
+    width: 100%;
+    gap: 10px;
+    justify-content: center;
     align-items: center;
-`;
-
-export const AddModalTitle = styled.h2`
-    margin: 0 0 15px 0;
-    font-size: 20px;
-    color: #333;
-`;
-
-export const AddModalInput = styled.input`
-    width: 100%; /* Ocupa toda a largura */
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-
-    &:focus {
-        outline: none;
-        border-color: #007bff; /* Cor da borda ao focar */
-        box-shadow: 0 0 5px rgba(0, 123, 255, 0.3); /* Sombras ao focar */
-    }
-`;
-
-export const RemoveButtonCategory = styled.button`
-    background-color: transparent;
-    border: solid red 1px;
-    border-radius: 4px;
-    cursor: pointer;
-    color: #fff;
-    font-size: 15px;
-    width: 20px;
-
-    &:hover {
-        color: #56b634;
-        background-color: red;
-    }
+    margin-top: 20px;
 `;

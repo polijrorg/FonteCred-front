@@ -5,7 +5,7 @@ interface ItemCardProps {
     item: {
         code: string;
         name: string;
-        requiredPoints: number;
+        percentage: number;
         imageUrl: string | null;
         description: string;
         sequencyValue: number;
@@ -13,7 +13,7 @@ interface ItemCardProps {
     onEditClick: (item: {
         code: string;
         name: string;
-        requiredPoints: number;
+        percentage: number;
         imageUrl: string | null;
         description: string;
         sequencyValue: number;
@@ -29,7 +29,7 @@ const ItemCard: React.FC<ItemCardProps> = ({ item, onEditClick }) => {
                 onClick={() =>
                     onEditClick({
                         ...item,
-                        requiredPoints: item.requiredPoints
+                        percentage: item.percentage
                     })
                 }
             />
@@ -39,7 +39,7 @@ const ItemCard: React.FC<ItemCardProps> = ({ item, onEditClick }) => {
             <S.Footer>
                 <S.ItemName>{item.name}</S.ItemName>
                 <S.Points>
-                    Pontos <span>{item.requiredPoints}</span>
+                    Porcentagem <span>{item.percentage}%</span>
                 </S.Points>
             </S.Footer>
         </S.Card>

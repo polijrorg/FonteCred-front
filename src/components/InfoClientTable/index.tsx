@@ -1,11 +1,6 @@
 import React from 'react';
 import * as S from './styles';
 
-interface Prize {
-    code: string;
-    name: string;
-}
-
 interface DataItem {
     id: string;
     name: string;
@@ -19,7 +14,6 @@ interface DataItem {
     uf: string;
     cep: string;
     complemento: string;
-    favoritePrizes: Prize[];
 }
 
 interface TableProps {
@@ -38,10 +32,6 @@ const Table: React.FC<TableProps> = ({ data }) => {
                     <S.TableRow>
                         <S.TableHeader>Nome:</S.TableHeader>
                         <S.TableData>{data.name}</S.TableData>
-                    </S.TableRow>
-                    <S.TableRow>
-                        <S.TableHeader>Pontos:</S.TableHeader>
-                        <S.TableData>{data.points}</S.TableData>
                     </S.TableRow>
                     <S.TableRow>
                         <S.TableHeader>Última retirada:</S.TableHeader>
@@ -78,14 +68,6 @@ const Table: React.FC<TableProps> = ({ data }) => {
                     <S.TableRow>
                         <S.TableHeader>Complemento:</S.TableHeader>
                         <S.TableData>{data.complemento}</S.TableData>
-                    </S.TableRow>
-                    <S.TableRow>
-                        <S.TableHeader>Itens favoritados:</S.TableHeader>
-                        <S.TableData>
-                            {data.favoritePrizes
-                                .map((prize) => prize.name)
-                                .join(', ')}
-                        </S.TableData>
                     </S.TableRow>
                 </tbody>
             </S.Table>

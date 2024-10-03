@@ -4,7 +4,6 @@ import * as S from './styles';
 interface DataItem {
     id: string;
     Item: string;
-    Cor: string;
     Codigo: string;
     DataResgate: string;
 }
@@ -20,7 +19,6 @@ const ItemTable: React.FC<TableProps> = ({ data }) => {
                 <thead>
                     <tr>
                         <S.TableHeader>Item resgatado</S.TableHeader>
-                        <S.TableHeader>Cor</S.TableHeader>
                         <S.TableHeader>Código do produto</S.TableHeader>
                         <S.TableHeader>Data de resgate</S.TableHeader>
                     </tr>
@@ -29,7 +27,6 @@ const ItemTable: React.FC<TableProps> = ({ data }) => {
                     {data.map((item: DataItem) => (
                         <S.TableRow key={item.id}>
                             <S.TableData>{item.Item}</S.TableData>
-                            <S.TableData>{item.Cor}</S.TableData>
                             <S.TableData>{item.Codigo}</S.TableData>
                             <S.TableData>{item.DataResgate}</S.TableData>
                         </S.TableRow>

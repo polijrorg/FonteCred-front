@@ -1,8 +1,8 @@
 import { NextPage } from 'next';
-import Status from 'template/Status';
+import StatusDelivery from 'template/StatusDelivery';
 
 const StatusPage: NextPage = () => {
-    return <Status />;
+    return <StatusDelivery />;
 };
 
 export default StatusPage;

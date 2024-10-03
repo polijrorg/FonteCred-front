@@ -4,6 +4,7 @@ import Header from 'components/Header';
 import Sidebar from 'components/Sidebar';
 import Searchbar from 'components/Searchbar';
 import DeliverStatusService from 'services/DeliverStatusService';
+import DownloadService from 'services/DownloadService';
 import * as S from './styles';
 
 interface DataItem {
@@ -25,6 +26,14 @@ const StatusEntregaTemplate: React.FC = () => {
 
     const handleSearch = (query: string) => {
         setSearchQuery(query);
+    };
+
+    const handleDownload = async () => {
+        try {
+            await DownloadService.downloadCSVDeliveries();
+        } catch (error) {
+            console.error('Erro ao baixar o arquivo:', error);
+        }
     };
 
     const handleCheckboxChange = async (id: string, currentStatus: boolean) => {
@@ -50,15 +59,39 @@ const StatusEntregaTemplate: React.FC = () => {
         }
     };
 
-    const filteredData = data.filter((item) =>
-        item.prize.name.toLowerCase().includes(searchQuery.toLowerCase())
+    const filteredData = data.filter(
+        (item) =>
+            item.prize &&
+            item.prize.name &&
+            item.prize.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const status = await DeliverStatusService.getDeliverStatus();
-                setData(status);
+
+                // Filtrar somente os resgates de produtos com isCoupon false
+                const filteredStatus = status.filter(
+                    (item) =>
+                        item.prizeRedeemed && !item.prizeRedeemed.prize.isCoupon
+                );
+
+                // Mapear os dados para a estrutura esperada
+                const mappedData = filteredStatus.map((item) => ({
+                    id: item.id,
+                    client: {
+                        name: item.prizeRedeemed.client.name
+                    },
+                    redeemedDate: item.redeemedDate,
+                    prize: {
+                        name: item.prizeRedeemed.prize.name
+                    },
+                    endereco: `${item.endereco}, ${item.numero} - ${item.bairro}, ${item.cidade} - ${item.uf}`,
+                    posted: item.posted
+                }));
+
+                setData(mappedData);
             } catch (error) {
                 console.error('Erro ao carregar dados:', error);
             }
@@ -75,6 +108,10 @@ const StatusEntregaTemplate: React.FC = () => {
                 <S.Background>
                     <S.SubtitleDiv>
                         <S.Subtitle>Status de Entrega</S.Subtitle>
+                        <S.Symbol
+                            src="assets/icons/Download.svg"
+                            onClick={handleDownload}
+                        />{' '}
                         <Searchbar onSearch={handleSearch} />
                     </S.SubtitleDiv>
                     <S.Table>
