@@ -5,6 +5,7 @@ import Sidebar from 'components/Sidebar';
 import Searchbar from 'components/Searchbar';
 import DeliverStatusService from 'services/DeliverStatusService';
 import DownloadService from 'services/DownloadService';
+import DateRangeModal from 'components/DownloadModal';
 import * as S from './styles';
 
 interface DataItem {
@@ -23,14 +24,22 @@ interface DataItem {
 const StatusEntregaTemplate: React.FC = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [data, setData] = useState<DataItem[]>([]);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleSearch = (query: string) => {
         setSearchQuery(query);
     };
 
-    const handleDownload = async () => {
+    const handleDownload = async (startDate: Date, endDate: Date) => {
         try {
-            await DownloadService.downloadCSVDeliveries();
+            const startOfPeriod = startDate.toISOString();
+            const endOfPeriod = endDate.toISOString();
+
+            await DownloadService.downloadCSVDeliveries(
+                startOfPeriod,
+                endOfPeriod
+            );
+            setIsModalOpen(false);
         } catch (error) {
             console.error('Erro ao baixar o arquivo:', error);
         }
@@ -38,19 +47,16 @@ const StatusEntregaTemplate: React.FC = () => {
 
     const handleCheckboxChange = async (id: string, currentStatus: boolean) => {
         try {
-            // Atualiza imediatamente no estado local para fornecer feedback visual
             setData((prevData) =>
                 prevData.map((item) =>
                     item.id === id ? { ...item, posted: !currentStatus } : item
                 )
             );
 
-            // Chama o serviço para atualizar o status no backend
             await DeliverStatusService.updateDeliverStatus(id, !currentStatus);
         } catch (error) {
             console.error('Erro ao atualizar status:', error);
 
-            // Reverte a atualização local se a requisição falhar
             setData((prevData) =>
                 prevData.map((item) =>
                     item.id === id ? { ...item, posted: currentStatus } : item
@@ -71,13 +77,11 @@ const StatusEntregaTemplate: React.FC = () => {
             try {
                 const status = await DeliverStatusService.getDeliverStatus();
 
-                // Filtrar somente os resgates de produtos com isCoupon false
                 const filteredStatus = status.filter(
                     (item) =>
                         item.prizeRedeemed && !item.prizeRedeemed.prize.isCoupon
                 );
 
-                // Mapear os dados para a estrutura esperada
                 const mappedData = filteredStatus.map((item) => ({
                     id: item.id,
                     client: {
@@ -110,7 +114,7 @@ const StatusEntregaTemplate: React.FC = () => {
                         <S.Subtitle>Status de Entrega</S.Subtitle>
                         <S.Symbol
                             src="assets/icons/Download.svg"
-                            onClick={handleDownload}
+                            onClick={() => setIsModalOpen(true)}
                         />{' '}
                         <Searchbar onSearch={handleSearch} />
                     </S.SubtitleDiv>
@@ -162,6 +166,12 @@ const StatusEntregaTemplate: React.FC = () => {
                     </S.Table>
                 </S.Background>
             </S.Wrapper>
+            {isModalOpen && (
+                <DateRangeModal
+                    onConfirm={handleDownload}
+                    onCancel={() => setIsModalOpen(false)}
+                />
+            )}
         </S.Container>
     );
 };

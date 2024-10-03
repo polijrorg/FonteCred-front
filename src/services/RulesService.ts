@@ -26,7 +26,6 @@ export default class RulesService {
     }
 
     static async deleteRule(id: string): Promise<void> {
-        // eslint-disable-next-line no-template-curly-in-string
         await api.delete(`/policies/delete/${id}`);
     }
 

@@ -19,6 +19,14 @@ export const Wrapper = styled.div`
     overflow-x: hidden;
 `;
 
+export const DownloadDiv = styled.div`
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+`;
+
 export const Background = styled.div`
     width: 100vw;
     background-color: ${defaultTheme.colors.primary.dark2};
@@ -76,5 +84,16 @@ export const ArrowButton = styled.button`
 
     &:hover {
         background: ${defaultTheme.colors.white};
+    }
+`;
+
+export const Icons = styled.img`
+    height: 24px;
+    width: 24px;
+
+    :hover {
+        transition: 100ms;
+        scale: 1.3;
+        cursor: pointer;
     }
 `;
