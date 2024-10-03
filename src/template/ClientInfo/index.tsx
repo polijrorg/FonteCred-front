@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 /* eslint-disable no-console */
 /* eslint-disable no-restricted-globals */
 /* eslint-disable react/button-has-type */
@@ -7,7 +8,8 @@ import Sidebar from 'components/Sidebar';
 import Table from 'components/InfoClientTable';
 import ItemTable from 'components/ItemTable';
 import ClientInfoService, { ClientInfos } from 'services/ClientInfoService';
-import Modal from 'react-modal';
+import ClientIdModal from 'components/ClientModal';
+import DownloadService from 'services/DownloadService';
 import * as S from './styles';
 
 interface DataItemDelivery {
@@ -23,14 +25,21 @@ const ClientInfoTemplate: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(true);
     const [data2, setData2] = useState<DataItemDelivery[]>([]);
 
+    const handleDownload = async (clientId: string) => {
+        try {
+            await DownloadService.downloadCSVClientPrizes(clientId);
+        } catch (error) {
+            console.error('Erro ao baixar o arquivo:', error);
+        }
+    };
+
     const handleClientIdSubmit = async () => {
         if (clientId) {
             try {
                 const data = await ClientInfoService.getClientInfo(clientId);
-                console.log('Dados do cliente recebidos:', data); // Log para verificar os dados recebidos
+                console.log('Dados do cliente recebidos:', data);
                 setClientData(data);
 
-                // Filtrar somente os itens resgatados (onde redeemed é true)
                 const redeemedItems = data.availablePrizes
                     .filter((prize) => prize.redeemed === true)
                     .map((prize) => {
@@ -79,26 +88,27 @@ const ClientInfoTemplate: React.FC = () => {
                         <Table
                             data={{
                                 ...clientData,
-                                lastRedeem: clientData.lastRedeem.name // Ajustando para passar apenas a string do nome
+                                lastRedeem: clientData.lastRedeem.name
                             }}
                         />
                     )}
+                    <S.DownloadDiv>
+                        <S.Icons
+                            src="assets/icons/Download.svg"
+                            onClick={() => handleDownload(clientId ?? '')}
+                        />
+                    </S.DownloadDiv>
                     <ItemTable data={data2} />
                 </S.Background>
             </S.Wrapper>
 
-            <Modal
+            <ClientIdModal
+                clientId={clientId ?? ''}
+                setClientId={setClientId}
+                onConfirm={handleClientIdSubmit}
+                onCancel={() => setIsModalOpen(false)}
                 isOpen={isModalOpen}
-                onRequestClose={() => setIsModalOpen(false)}
-            >
-                <h2>Insira o ID do Cliente</h2>
-                <input
-                    type="text"
-                    value={clientId ?? ''}
-                    onChange={(e) => setClientId(e.target.value)}
-                />
-                <button onClick={handleClientIdSubmit}> Consultar </button>
-            </Modal>
+            />
         </S.Container>
     );
 };

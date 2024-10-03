@@ -7,7 +7,6 @@ import Table from 'components/ClientTable';
 import ClientService, { Client } from 'services/ClientListService';
 import * as S from './styles';
 
-// Função para formatar a data no formato "dd/mm/aaaa hh:mm:ss"
 const formatDateTime = (dateStr: string) => {
     try {
         const dateObj = new Date(dateStr);
@@ -43,13 +42,11 @@ const ClientListTemplate: React.FC = () => {
                 );
 
                 const mappedClients = clients.map((client) => {
-                    // Verificar e formatar 'lastRedeem.date' usando a função formatDateTime
                     const formattedLastRedeemDate =
                         client.lastRedeem && client.lastRedeem.date
                             ? formatDateTime(client.lastRedeem.date.toString())
                             : 'Data não disponível';
 
-                    // Formatar 'lastLogin' para o formato dd/mm/aaaa hh:mm:ss
                     const formattedLastLogin = client.lastLogin
                         ? formatDateTime(client.lastLogin)
                         : 'Data não disponível';
@@ -58,8 +55,8 @@ const ClientListTemplate: React.FC = () => {
                         ...client,
                         ultimaRetirada: `${
                             client.lastRedeem?.name || 'Não especificado'
-                        } - ${formattedLastRedeemDate}`, // Concatenando o nome e a data
-                        ultimoAcesso: formattedLastLogin // Atualizando o último acesso com a data formatada
+                        } - ${formattedLastRedeemDate}`,
+                        ultimoAcesso: formattedLastLogin
                     };
                 });
 
